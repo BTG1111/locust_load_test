@@ -1,7 +1,7 @@
 # locust log files
 locust.log
 locust_report.html
-locust_results_exception.csv
+locust_results_exceptions.csv
 locust_results_failures.csv
 locust_results_stats.csv
 locust_results_stats_history.csv

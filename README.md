@@ -3,7 +3,19 @@
 This project uses Locust to perform API load testing.
 With a simple command, you can easily stress test APIs and generate detailed test reports.
 ---
-## Installation Steps
+## Project Structure
+```bash
+.env                  # Environment variables for Docker
+.gitignore            # Git ignore settings
+docker-compose.yml    # Docker Compose configuration
+Dockerfile            # Dockerfile for building the image
+locustfile.py         # Main Locust load test script
+README.md             # Project documentation
+test_data.csv         # Test data file 
+requirements.txt      # Dependency list
+```
+---
+## Installation Steps (Local Python)
 1. Clone the repository
 ```bash
 git clone <your-repo-link>
@@ -19,22 +31,10 @@ venv\Scripts\activate      # For Windows
 ```bash
 pip install -r requirements.txt
 ````
-
----
-## Project Structure
-```bash
-.gitignore            # Git ignore settings
-locustfile.py         # Main Locust load test script
-test_data.csv         # Test data file 
-requirements.txt      # Dependency list
-```
-
----
-
-## How to Run the Test
+### How to Run the Test
 Run the following command in your terminal:
 ```bash
-locust -f locustfile.py -u 1 -t 30 -r 1 --host=https://reqres.in --headless --html locust_report.html --logfile=locust.log --csv=locust_results
+locust -f locustfile.py -u 1 -t 30s -r 1 --host=https://reqres.in --headless --html locust_report.html --logfile=locust.log --csv=locust_results
 ```
 Command Parameters Explained:
 
@@ -42,7 +42,7 @@ Command Parameters Explained:
 |---------------------------|--------------------------------------|
 | -f locustfile.py          | Specify the Locust test file         |
 | -u 1                      | Number of users (CCU - concurrent users) |
-| -t 30                     | Total test duration: 30 seconds      |
+| -t 30s                    | Total test duration: 30 seconds      |
 | -r 1                      | Spawn rate: 1 user per second        |
 | -host=https://regres.in   | Target server for testing            |
 | --headless                | Run in non-UI mode (no web interface)|
@@ -50,6 +50,24 @@ Command Parameters Explained:
 | -logfile=locust.log       | Save execution logs to a file|
 | --csv=locust_results      | Export test results in CSV format|
 
+---
+## 🐳 Run with Docker (Recommended)
+1. Ensure docker and docker-compose are installed
+   - Docker: https://www.docker.com/get-started
+   - Docker Compose: included with Docker Desktop
+2. You can customize your test parameters in the .env file.
+```bash
+example of .env file
+
+USERS=150
+SPAWN_RATE=5
+DURATION=900
+TARGET_HOST=https://reqres.in
+```
+3. Run the load test with Docker Compose
+```bash
+docker compose up --build
+```
 ---
 
 ## Test Results

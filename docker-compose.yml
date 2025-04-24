@@ -1,0 +1,21 @@
+version: "3"
+services:
+  locust:
+    build: .
+    ports:
+      - "8089:8089"
+    environment:
+      - LOCUST_HOST=${LOCUST_HOST}
+      - LOCUST_USERS=${LOCUST_USERS}
+      - LOCUST_SPAWN_RATE=${LOCUST_SPAWN_RATE}
+      - LOCUST_RUN_TIME=${LOCUST_RUN_TIME}
+    command: >
+      -f locustfile.py 
+      --host=${LOCUST_HOST} 
+      -u ${LOCUST_USERS} 
+      -r ${LOCUST_SPAWN_RATE} 
+      -t ${LOCUST_RUN_TIME} 
+      --headless 
+      --html locust_report.html 
+      --csv=locust_results 
+      --logfile=locust.log
